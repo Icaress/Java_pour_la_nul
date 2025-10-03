@@ -201,4 +201,30 @@ class exo_11{
         }
     }
 }
-    
+
+class exo_12{
+    public static void main(String[] args){
+        String init_str = "String";
+        String nv_str = init_str;
+        String rien = "";
+    }
+}
+
+class exo_13{
+    public static void main(String[] args){
+        String str_1 = "";
+        String str_2 = "";
+        String str_3 = str_1 + str_2;
+    }
+}
+
+class exo_14{
+    public static void main(String[] args){
+        String entier_str = "123";
+        int conversion = Integer.parseInt(entier_str);
+        System.out.println(entier_str + " " + conversion);
+        int entier = 123;
+        String ch = String.valueOf(entier);
+        System.out.print(entier + " " + ch);
+    }
+}
