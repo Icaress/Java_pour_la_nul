@@ -1,7 +1,8 @@
+import java.util.Locale;
 import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);//.useLocale(Locale.US); avec sa le point marche
         Etudiant etudiant_1 = new Etudiant();
         etudiant_1.creation_etudiant(sc);
         etudiant_1.saisie_de_note(sc);
