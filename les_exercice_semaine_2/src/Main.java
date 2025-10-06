@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
@@ -116,7 +118,7 @@ class Oeuvre{
         this.livre = new Livre[3];
         this.nombre_livre = 0;
     }
-    public void donnerIssue(Livre livre1){
+    public void donnerLieu(Livre livre1){
         if (nombre_livre<3){
             livre[nombre_livre] = livre1;
             nombre_livre ++;
@@ -136,14 +138,85 @@ class exo_5_main{
 
         livre.issu(oeuvre);
 
-        oeuvre.donnerIssue(livre);
-        oeuvre.donnerIssue(livre1);
-        oeuvre.donnerIssue(livre2);
-        oeuvre.donnerIssue(livre3);
+        oeuvre.donnerLieu(livre);
+        oeuvre.donnerLieu(livre1);
+        oeuvre.donnerLieu(livre2);
+        oeuvre.donnerLieu(livre3);
 
         System.out.println("Les livre stocké dans l'oeuvre " + oeuvre.nom + " sont au nombre de " + oeuvre.nombre_livre);
         for(int i = 0;i<oeuvre.nombre_livre;i++){
             System.out.println(oeuvre.livre[i].titre);
         }
+    }
+}
+class Man{
+    public String name;
+    public Man(String name){
+        this.name = name;
+    }
+}
+class Woman{
+    public String name;
+    public Woman(String name){
+        this.name = name;
+    }
+}
+class Marriage{//je te conseil de bien apprendre cette class en vrai c'est la plus dure que j'ai crée depuis le début
+    public String date;
+    public String place;
+    public int contract;
+    public Contract contrat;
+    public Marriage(Scanner sc,String place){
+        int[] table_of_marriage = request_date(sc);
+        this.date = table_of_marriage[0] + "/" + table_of_marriage[1] + "/" + table_of_marriage[2];
+        this.place = place;
+    }
+    public void passer(Contract contract){
+        this.contrat = contract;
+        System.out.println("Le contrat a été passer avec succès la date du mariage sera le " + this.date + " et son numéro sera le " + contract.number_of_contract);
+    }
+    public int[] request_date(Scanner sc){
+        int correct_date = 0;
+        int[] date = new int[3];
+        do{
+            System.out.print("Veuillez saisir la date de votre mariage sous format (jj/mm/aaaa): ");
+
+            String[] part_of_date = sc.nextLine().split("/");//cette ligne c'est gpt car y'a une fonction split qui existe ou y'a pas du moin que j'ai jamais vu en c
+            if (part_of_date.length == 3){
+                date[0] = Integer.parseInt(part_of_date[0]);
+                date[1] =Integer.parseInt(part_of_date[1]);
+                date[2] =Integer.parseInt(part_of_date[2]);
+            }
+
+            if(date[0] > 31 || date[0] <= 0 || date[1] > 12 || date[1] <= 0 || date[2] <= 0){
+                System.out.println("date saisie incorrect Veuillez ressasir");
+            }else{
+                correct_date = 1;
+            }
+
+        }while(correct_date != 1);
+        return date;
+    }
+    public void marier(Man Man,Woman woman){
+        System.out.println("Félicitation " + Man.name + " et " + woman.name + " sont désormais unie pour le restant de leur jour du moin je l'éspèrent");
+    }
+}
+class exo_6_et_exo_7_main{
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        Marriage marriage = new Marriage(sc,"Montpelier");
+        Man Man = new Man("Frédéric");
+        Woman woman = new Woman("Kanto");
+        Contract contract = new Contract(16541522);
+        marriage.marier(Man,woman);
+        System.out.println(marriage.date);
+        marriage.passer(contract);
+        sc.close();
+    }
+}
+class Contract{
+    int number_of_contract;
+    public Contract(int number_of_contract){
+        this.number_of_contract = number_of_contract;
     }
 }
