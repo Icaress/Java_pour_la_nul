@@ -164,7 +164,6 @@ class Woman{
 class Marriage{//je te conseil de bien apprendre cette class en vrai c'est la plus dure que j'ai crée depuis le début
     public String date;
     public String place;
-    public int contract;
     public Contract contrat;
     public Marriage(Scanner sc,String place){
         int[] table_of_marriage = request_date(sc);
@@ -218,5 +217,322 @@ class Contract{
     int number_of_contract;
     public Contract(int number_of_contract){
         this.number_of_contract = number_of_contract;
+    }
+}
+class Sell{
+    public int number_of_sell;
+    public int selled_number;
+    public Week week;
+    public Sell_point sell_point;
+    public Review review;
+    public Sell(int number_of_sell ,int selled_number ){
+        this.number_of_sell = number_of_sell;
+        this.selled_number = selled_number;
+    }
+    public void sells(Week week,Sell_point sell_point,Review review){
+        System.out.println("Voici un résumé des vente de la semaine " + week.week_number + " : ");
+        System.out.println("Dans la boutique " + sell_point.name_of_shop + " il a été vendu la review " + "'" + review.title + "'" + " au nombre de " + this.selled_number);
+    }
+}
+
+class Week{
+    public int week_number;
+    public Week(Scanner sc){
+         this.week_number = correct_week(sc);
+    }
+    public int correct_week(Scanner sc){
+        int week;
+        int d = 0;
+        do {
+            System.out.println("Veuillez saisir la semaine de l'année : ");
+            week = sc.nextInt();
+            if (week > 52 || week <= 0){
+                System.out.println("Semaine saisie incorrect");
+            }else {
+                d++;
+            }
+        } while (d != 1);
+        return week;
+    }
+}
+class Sell_point{
+    String name_of_shop;
+    public Sell_point(String name_of_shop){
+        this.name_of_shop = name_of_shop;
+    }
+}
+class Review{
+    String title;
+    public Review(String title){
+        this.title = title;
+    }
+}
+class main_ex8{
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        Sell sell = new Sell(549648,5);
+        Review review = new Review("Le chien de Kanto a trop grossi");
+        Sell_point sell_point = new Sell_point("L'ECE");
+        Week week = new Week(sc);
+        sell.sells(week,sell_point,review);
+        sc.close();
+    }
+}
+class Configuration{
+    public int numero_de_config;
+    public Clavier clavier;
+    public Ecran ecran;
+    public Disque[] disques;
+    public Configuration(int numero_de_config){
+        this.numero_de_config = numero_de_config;
+    }
+    public void assembler(Clavier clavier,Ecran ecran,Disque[] disques){
+        this.clavier = clavier;
+        this.ecran = ecran;
+        this.disques = disques;
+        System.out.println("Voici votre configuration : \nEcran : " + this.ecran.marque + "\nClavier : " + this.clavier.marque + "\nDisques : ");
+        for(int i = 0;i<disques.length;i++){
+            System.out.println(disques[i].marque);
+        }
+
+    }
+    public Disque[] creation_tableau_disque(Disque... disques) {//chad gpt pour les disque sa se nomme varargs
+        return disques;
+    }
+
+}
+class Ecran{
+    public String marque;
+    public Ecran(String marque){
+        this.marque = marque;
+    }
+}
+class Clavier{
+    public String marque;
+    public Clavier(String marque){
+        this.marque = marque;
+    }
+}
+class Disque{
+    public String marque;
+    public Disque(String marque){
+        this.marque = marque;
+    }
+}
+class main_exo_9{
+    public static void main(String[] args){
+        Configuration configuration = new Configuration(1);
+        Clavier clavier = new Clavier("LG");
+        Ecran ecran = new Ecran("TuF");
+        Disque disque1 = new Disque("HP");
+        Disque disque2 = new Disque("Asus");
+        configuration.assembler(clavier,ecran,configuration.creation_tableau_disque(disque1,disque2));
+    }
+}
+class Liste{
+    public Livre[] livre;
+    int max_livre;
+    int position;
+    public Liste(){
+        this.max_livre = 3;
+        this.position = -1;
+        this.livre = new Livre[max_livre];
+    }
+    public void premier(){
+        if (position >= 0){
+            position = 0;
+        }else{
+            position = -1;
+        }
+    }
+    public void dernier(){
+        if (position == -1){
+            position = 0;
+        }
+    }
+    public Livre suivant(){
+        if (position == -1){
+            return null;
+        }
+        if (position == max_livre) {
+            return null;
+        }
+        else{
+            position++;
+            return livre[position];
+        }
+    }
+    public Livre supprimer(){
+        if (position == -1){
+            System.out.println("liste vide rien a supprimer");
+            return null;
+        }
+        else{
+            Livre livre1 = livre[position];
+            livre[position] = null;
+            position--;
+            return livre1;
+        }
+
+    }
+    public void ajouter(Livre livre1) {
+        if (position < max_livre - 1) {
+            position++;
+            livre[position] = livre1;
+        } else {
+            System.out.println("Dépassement des bord du tableau,impossible d'ajouter");
+        }
+    }
+}
+class Pile{
+    public Liste liste;
+    public Pile(){
+        this.liste = new Liste();
+    }
+    public void empiler(Livre livre){
+        //liste.dernier();
+        liste.ajouter(livre);
+    }
+    public Livre depiler(){
+       // liste.dernier();
+        return liste.supprimer();
+    }
+}
+class Main_exo_10 {
+    public static void main(String[] args) {
+        Pile pile = new Pile();
+
+        Livre livre1 = new Livre("The Fall");
+        Livre livre2 = new Livre("The Plague");
+        Livre livre3 = new Livre("The Rebel");
+        Livre livre4 = new Livre("The Outsider");
+
+        System.out.println("Tentative de dépiler une pile vide :");
+        Livre livreDepile = pile.depiler();
+        if (livreDepile == null) System.out.println("Pile vide !\n");
+
+        System.out.println("Empilement des livres :");
+        pile.empiler(livre1);
+        pile.empiler(livre2);
+        pile.empiler(livre3);
+        pile.empiler(livre4); // ce dernier devrait afficher une erreur
+
+        System.out.println("\nDépilement des livres :");
+        for (int i = 0; i < 4; i++) {
+            Livre l = pile.depiler();
+            if (l != null)
+                System.out.println("Livre dépilé : " + l.titre);
+        }
+
+        System.out.println("\nNouvelle tentative de dépiler (pile vide) :");
+        pile.depiler();
+    }
+}
+class Vertebre{
+     public String os_ou_carthi;
+     public Vertebre(String os_ou_carthi){
+         this.os_ou_carthi = os_ou_carthi;
+     }
+}
+class Poisson extends Vertebre{
+    public String nom;
+    public Poisson(String nom,String os_ou_carthi){
+        super(os_ou_carthi);
+        this.nom = nom ;
+    }
+}
+class Oiseau extends Vertebre{
+    public String nom;
+    public Oiseau(String nom,String os_ou_carthi){
+        super(os_ou_carthi);
+        this.nom = nom;
+    }
+}
+class Main_exo_12{
+    public static void main(String [] args){
+        Vertebre vertebre = new Vertebre("Os");
+        Oiseau oiseau = new Oiseau("Piaf","carthi");
+        Poisson poisson = new Poisson("Nemo","Os");
+        System.out.println(vertebre.os_ou_carthi + oiseau.nom + oiseau.os_ou_carthi + poisson.os_ou_carthi + poisson.nom);
+    }
+}
+class Mammifere extends Vertebre{
+    public boolean poil;
+    public Mammifere(String os_ou_carthi){
+        super(os_ou_carthi);
+        this.poil = true;
+    }
+    public void affiche_mammifere(){
+        System.out.println(this.poil + " " + this.os_ou_carthi);
+    }
+}
+class Maman{
+    private int age;
+    public Maman(int age){
+        this.age = age;
+    }
+    public void setAge(int age){
+        this.age = age;
+    }
+    public int getAge(){
+        return this.age;
+    }
+}
+class Fifille extends Maman{
+    private int note;
+    public Fifille(int age,int note){
+        super(age);
+        this.note = note;
+    }
+
+    public void modifier_age(int nouveau_age) {
+         setAge(nouveau_age);
+    }
+
+    public void afficher_fifille(){
+        System.out.println("Age : " + getAge() + " note : " + this.note);
+    }
+}
+class Main_exo_14{
+    public static void main(String[] args){
+    Fifille fifille = new Fifille(20,20);
+    System.out.println(fifille.getAge());
+    fifille.modifier_age(21);
+    fifille.afficher_fifille();
+    }
+}
+class Personne{
+    private Personne conjoint;
+
+    public void pacser(Personne autre){
+        this.conjoint = autre;
+        autre.conjoint = this;
+    }
+    public Personne getConjoint(){
+        return conjoint;
+    }
+}
+
+class Homme extends Personne{
+    private int age;
+    public Homme(int age){
+        this.age = age;
+    }
+}
+class Femme extends Personne{
+    private int age;
+    public Femme(int age){
+        this.age = age;
+    }
+}
+class Test {
+    public static void main(String[] args) {
+        Homme h = new Homme(25);
+        Femme f = new Femme(22);
+
+        h.pacser(f);
+
+        System.out.println(h.getConjoint()); 
+        System.out.println(f.getConjoint());
     }
 }
