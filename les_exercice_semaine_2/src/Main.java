@@ -532,7 +532,7 @@ class Test {
 
         h.pacser(f);
 
-        System.out.println(h.getConjoint()); 
+        System.out.println(h.getConjoint());
         System.out.println(f.getConjoint());
     }
 }
