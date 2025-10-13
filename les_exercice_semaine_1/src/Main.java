@@ -170,7 +170,7 @@ class ex_10 {
                 System.out.println(tabint2[i][j]);
             }
         }
-        // sa c'est vraiment complexe c'est un doucle for each c'est simple genre c'est juste que tabint2 c'est les valeur de i de la première dimension
+        // sa c'est vraiment complexe c'est une boucle for each c'est simple genre c'est juste que tabint2 c'est les valeur de i de la première dimension
         // et ints c'est la valeur des y c'est juste les deux facons de l'écrire je te conseille le prmier pour pour pas tomber dans la trappe
         for (int[] ints : tabint2) {
             for (int anInt : ints) {
